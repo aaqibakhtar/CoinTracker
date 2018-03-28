@@ -3,11 +3,11 @@
 <IfModule mod_rewrite.c>
 php_value max_execution_time 300
 RewriteEngine On
-RewriteBase /CoinTracker/
+RewriteBase https://coin-tracker-aaqib.herokuapp.com/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /CoinTracker/index.php [L]
+RewriteRule . https://coin-tracker-aaqib.herokuapp.com//index.php [L]
 </IfModule>
 
 # END WordPress
