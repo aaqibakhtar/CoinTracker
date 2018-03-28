@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ .'\twitteroauth\autoload.php';
+require('../wp-blog-header.php');
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 $consumer = "36ckd4ByGqIkX4McszyEHv0oF";
@@ -11,7 +12,7 @@ $connection = new TwitterOAuth($consumer,$consumer_secret,$access,$access_secret
 $content = $connection->get("account/verify_credentials");
 
 
-  $tweets = $connection->get("statuses/user_timeline",['count' => 200,'exclude_replies' => true,'screen_name'=>'altmanagerhq','result_type'=>'recent','tweet_mode'=>'extended']);
+  $tweets = $connection->get("statuses/user_timeline",['count' => 20,'exclude_replies' => true,'screen_name'=>'altmanagerhq','result_type'=>'recent','tweet_mode'=>'extended']);
 
   $data;
   $data2;
@@ -60,40 +61,40 @@ $content = $connection->get("account/verify_credentials");
   $data3 = preg_split("/4H \(/", $data2[1],2);
   $extracted[$index][4]=preg_split("/%\)/",$data3[1],2)[0];
 
-  //change
-  $data3 = preg_split("/[Price:|Voume:]+/", $data3[1],2);
-  $data3 = preg_split("/[(BTC \->)|(BTC)|(USDT \->)|(USDT)|(ETH \->)|(ETH)]+/", $data3[1],5);
+  // V/P change
+  $data3 = preg_split("/[Price:|Volume:]+/", $data3[1],2);
+  $data3 = preg_split("/(🕒)+/", $data3[1],2);
 
-  $extracted[$index][5]=$data3[1];
-  $extracted[$index][6]=$data3[3];
+
+  $extracted[$index][5]=$data3[0];
+  //$extracted[$index][6]=$data3[1];
 
   // ---- 1D value
   $data3 = preg_split("/1D \(/", $data2[1],2);
-  $extracted[$index][7]=preg_split("/%\)/",$data3[1],2)[0];
+  $extracted[$index][6]=preg_split("/%\)/",$data3[1],2)[0];
   // ---- 1D %
   if($extracted[$index][1]=="Volume"){
   $data3 = preg_split("/( - )+/", $data3[1],2);
-  $extracted[$index][8]=preg_split("/[(BTC)|(USDT)|(ETH)]+/",$data3[1],2)[0];
+  $extracted[$index][7]=preg_split("/[\n]/",$data3[1],2)[0];
   }else
-  $extracted[$index][8]="-";
+  $extracted[$index][7]="";
 
   //---- 7D value
   $data3 = preg_split("/7D \(/", $data2[1],2);
-  $extracted[$index][9]=preg_split("/%\)/",$data3[1],2)[0];
+  $extracted[$index][8]=preg_split("/%\)/",$data3[1],2)[0];
   //---- 7D %
   if($extracted[$index][1]=="Volume"){
   $data3 = preg_split("/( - )+/", $data3[1],2);
-  $extracted[$index][10]=preg_split("/[(BTC)|(USDT)|(ETH)]+/",$data3[1],2)[0];
+  $extracted[$index][9]=preg_split("/[\n]/",$data3[1],2)[0];
   }else
-  $extracted[$index][10]="-";
+  $extracted[$index][9]="";
 
   $index++;
   }
 
   }
-  $index = 0;
-
-  $extracted = array_reverse($extracted);
+    $index = 0;
+$extracted = array_reverse($extracted);
   foreach ($extracted as $row){
   $dt = $tweet_date[$index];
 
@@ -110,9 +111,9 @@ $content = $connection->get("account/verify_credentials");
                 <table style='border: 1px solid black'>
                 <tr><td>1H: </td><td>".$row[3]."%</td></tr>
                 <tr><td>4H: </td><td>".$row[4]."%</td></tr>
-                <tr><td>".$row[1].": </td><td>".$row[5]." -> ".$row[6]."</td></tr> 
-                <tr><td>1D: </td><td>(".$row[7]."%) - ".$row[8]."</td></tr>
-                <tr><td>7D: </td><td>(".$row[9]."%) - ".$row[10]."</td></tr>
+                <tr><td>".$row[1].": </td><td>".$row[5]."</td></tr> 
+                <tr><td>1D: </td><td>(".$row[6]."%) - ".$row[7]."</td></tr>
+                <tr><td>7D: </td><td>(".$row[8]."%) - ".$row[9]."</td></tr>
                 </table>"
               );
               $post_id = wp_insert_post($post);
@@ -123,4 +124,5 @@ $content = $connection->get("account/verify_credentials");
     }
 
   }
+ echo "Done with fetching successfully!";
 ?>

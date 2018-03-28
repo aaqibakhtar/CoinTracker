@@ -1,6 +1,8 @@
 <?php
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 require __DIR__ .'\twitteroauth\autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 /**
  * Twenty Seventeen functions and definitions
@@ -591,7 +593,7 @@ require get_parent_theme_file_path( '/inc/icon-functions.php' );
 
 
 
-
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.......
 //-------------------------xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------------------
 add_filter('cron_schedules','my_cron_schedules');
             if(!wp_get_schedule('tweets_fetcher')){
@@ -738,3 +740,4 @@ $content = $connection->get("account/verify_credentials");
 	}
 	
 //-------------------------xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--------------------------
+*/
