@@ -7,7 +7,7 @@ RewriteBase https://coin-tracker-aaqib.herokuapp.com/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . https://coin-tracker-aaqib.herokuapp.com//index.php [L]
+RewriteRule . https://coin-tracker-aaqib.herokuapp.com/index.php [L]
 </IfModule>
 
 # END WordPress
