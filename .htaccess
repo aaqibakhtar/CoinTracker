@@ -2,11 +2,11 @@
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /CoinTracker/
+RewriteBase /coin-tracker-aaqib.herokuapp.com/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ./CoinTracker/index.php [L]
+RewriteRule ./coin-tracker-aaqib.herokuapp.com/index.php [L]
 </IfModule>
 
 # END WordPress
